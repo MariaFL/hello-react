@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 
-class Article extends Component {
+class Article extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -9,12 +9,12 @@ class Article extends Component {
     };
 
   }
+
   componentWillMount() {
     console.log('mounting');
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('will receive props');
     if (nextProps.defaultOpen !== this.props.defaultOpen) {
       this.setState({
         isOpen: nextProps.defaultOpen
@@ -48,7 +48,6 @@ class Article extends Component {
   }
 
   handleClick = () => {
-    console.log('---', 'clicked');
     this.setState({
       isOpen: !this.state.isOpen
     })
