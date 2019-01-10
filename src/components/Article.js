@@ -1,25 +1,9 @@
 import React, {PureComponent} from 'react';
 
 class Article extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isOpen: props.defaultOpen
-    };
-
-  }
 
   componentWillMount() {
     console.log('mounting');
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.defaultOpen !== this.props.defaultOpen) {
-      this.setState({
-        isOpen: nextProps.defaultOpen
-      })
-    }
   }
 
   componentWillUpdate() {
@@ -27,15 +11,15 @@ class Article extends PureComponent {
   }
 
   render() {
-    const {article} = this.props;
-    const body = this.state.isOpen && <section className="card-text">{article.text}</section>;
+    const {article, isOpen, onButtonClick} = this.props;
+    const body = isOpen && <section className="card-text">{article.text}</section>;
     return (
       <div className="card mx-auto" style={{width: '50%'}}>
         <div className="card-header">
           <h2>
             {article.title}
-            <button onClick={this.handleClick} className="btn btn-primary btn-lg float-right">
-              {this.state.isOpen ? 'close' : 'open'}
+            <button onClick={onButtonClick} className="btn btn-primary btn-lg float-right">
+              {isOpen ? 'close' : 'open'}
             </button>
           </h2>
         </div>
@@ -47,11 +31,6 @@ class Article extends PureComponent {
     )
   }
 
-  handleClick = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    })
-  }
 }
 
 export default Article;
